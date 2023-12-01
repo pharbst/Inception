@@ -7,7 +7,7 @@ RUN 	apk update && apk upgrade && apk add --no-cache \
 		mariadb \
 		mariadb-client
 
-COPY	../tools/mariadb_init.sh /root/
+COPY	./mariadb_init.sh /root/
 
 RUN		chmod /root/mariadb_init.sh
 
