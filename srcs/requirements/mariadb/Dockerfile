@@ -1,24 +1,14 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de>   +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/13 03:19:31 by pharbst           #+#    #+#              #
-#    Updated: 2023/11/26 15:26:00 by pharbst          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+FROM alpine:3.18.4
 
-FROM debian:bookworm
+LABEL version="0.0 beta"
+LABEL description="Mariadb container for inception project"
 
-RUN	apt update \
-	&& apt install -y mariadb-server
+RUN 	apk update && apk upgrade && apk add --no-cache \
+		mariadb \
+		mariadb-client
 
-COPY ./mariadb.sh /root/
+COPY	../tools/mariadb_init.sh /root/
 
-RUN chmod 777 /root/mariadb.sh
+RUN		chmod /root/mariadb_init.sh
 
-ENTRYPOINT [ "/root/mariadb.sh" ]
-
-# CMD ["mariadb", "--bind-address=0.0.0.0"]
+ENTRYPOINT [ "sh", "/root/mariadb_init.sh" ]
