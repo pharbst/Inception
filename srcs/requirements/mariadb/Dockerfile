@@ -9,6 +9,6 @@ RUN 	apk update && apk upgrade && apk add --no-cache \
 
 COPY	./mariadb_init.sh /root/
 
-RUN		chmod /root/mariadb_init.sh
+RUN		chmod 777 /root/mariadb_init.sh
 
 ENTRYPOINT [ "sh", "/root/mariadb_init.sh" ]
