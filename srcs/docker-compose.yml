@@ -1,57 +1,42 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de>   +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/13 03:19:38 by pharbst           #+#    #+#              #
-#    Updated: 2023/11/13 03:19:39 by pharbst          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-version: '3.7'
+version: '3.1'
 
 services:
-  nginx:
-    build: ./srcs/requirements/nginx
-    image: nginx
-    container_name: nginx
-    networks:
-      - docker_network
-    ports:
-      - 443:443
-    env_file:
-      - .env
-    volumes:
-      - /home/pharbst/data/wordpress:/var/www/html/wordpress
-    depends_on:
-      - wordpress
-    restart: always
-  wordpress:
-    build: ./srcs/requirements/wordpress
-    image: wordpress
-    container_name: wordpress
-    networks:
-      - docker_network
-    env_file:
-      - .env
-    volumes:
-      - /home/pharbst/data/wordpress:/var/www/html/wordpress
-    depends_on:
-      - mariadb
-    restart: always
   mariadb:
-    build: ./srcs/requirements/mariadb
+    build: ./requirements/mariadb
     image: mariadb
     container_name: mariadb
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ~/Documents/Inception/mariadbtestvolume:/var/lib/mysql
     networks:
       - docker_network
-    env_file:
-      - .env
-    volumes:
-      - /home/pharbst/data/mariadb:/var/lib/mysql
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    container_name: wordpress
     restart: always
+    depends_on:
+      - mariadb
+    env_file:
+      - ./.env
+    volumes: ~/Documents/Inception/wordpresstestvolume:/var/www/html/wordpress
+    networks:
+      - docker_network
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    container_name: nginx
+    restart: always
+    depends_on:
+      - wordpress
+    env_file:
+      - ./.env
+    volumes:
+      - ~/Documents/Inception/wordpresstestvolume:/var/www/html/wordpress
+    networks:
+      - docker_network
 
 networks:
   docker_network:
