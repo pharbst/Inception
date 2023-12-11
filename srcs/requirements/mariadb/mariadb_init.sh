@@ -20,4 +20,6 @@ sleep 2
 
 service mariadb stop
 
+sed -i -e 's/^bind-address\s*=.*/bind-address = 0.0.0.0/' -e '/^bind-address\s*=.*/a skip-networking = 0' /etc/mysql/mariadb.conf.d/50-server.cnf
+
 exec mysqld -uroot

@@ -1,20 +1,20 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de>   +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/13 03:19:38 by pharbst           #+#    #+#              #
-#    Updated: 2023/11/16 12:39:15 by pharbst          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+FROM debian:bookworm
 
-FROM debian:buster
+LABEL version="0.1"
+LABEL description="wordpress container for inception project"
 
-RUN	apt update \
-	&& apt install -y wordpress
+RUN apt update
+RUN apt install -y	wget php php-fpm php-mysql mariadb-client
 
-ENTRYPOINT
+RUN cd /usr/local/bin/ \
+	&& wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+	&& mv wp-cli.phar wp \
+	&& chmod +x wp
 
-CMD
+# COPY www.conf /etc/php/8.2/fpm/pool.d/
+
+COPY wordpress_init.sh /root/
+
+RUN chmod 777 /root/wordpress_init.sh
+
+ENTRYPOINT [ "/root/wordpress_init.sh" ]

@@ -9,17 +9,18 @@ services:
     env_file:
       - ./srcs/.env
     volumes:
-      - ~/Documents/Inception/mariadbtestvolume:/var/lib/mysql
+      - ~/Documents/Inception/amariadbtestvolume:/var/lib/mysql
     networks:
       - docker_network
   wordpress:
-    image: wordpress:latest
+    build: ./srcs/requirements/wordpress
+    image: wordpress:v0.2
     container_name: website
     restart: unless-stopped
     env_file:
       - ./srcs/.env
     volumes:
-      - ~/Documents/Inception/wordpresstestvolume:/var/www/html/wordpress
+      - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
     networks:
       - docker_network
     depends_on:
@@ -30,11 +31,13 @@ services:
     container_name: webserver
     restart: unless-stopped
     ports:
+      - 8080:8080
+      - 80:80
       - 443:443
     env_file:
       - ./srcs/.env
     volumes:
-      - ~/Documents/Inception/wordpresstestvolume:/var/www/html/wordpress
+      - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
     networks:
       - docker_network
     depends_on:
