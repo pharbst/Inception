@@ -11,7 +11,9 @@ RUN cd /usr/local/bin/ \
 	&& mv wp-cli.phar wp \
 	&& chmod +x wp
 
-# COPY www.conf /etc/php/8.2/fpm/pool.d/
+EXPOSE 9000
+
+COPY www.conf /etc/php/8.2/fpm/pool.d/
 
 COPY wordpress_init.sh /root/
 

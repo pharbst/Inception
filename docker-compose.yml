@@ -1,34 +1,10 @@
 version: '3.1'
 
 services:
-  mariadb:
-    build: ./srcs/requirements/mariadb
-    image: mariadb:v1.0
-    container_name: database
-    restart: unless-stopped
-    env_file:
-      - ./srcs/.env
-    volumes:
-      - ~/Documents/Inception/amariadbtestvolume:/var/lib/mysql
-    networks:
-      - docker_network
-  wordpress:
-    build: ./srcs/requirements/wordpress
-    image: wordpress:v0.2
-    container_name: website
-    restart: unless-stopped
-    env_file:
-      - ./srcs/.env
-    volumes:
-      - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
-    networks:
-      - docker_network
-    depends_on:
-      - mariadb
   nginx:
     build: ./srcs/requirements/nginx
     image: nginx:v0.1
-    container_name: webserver
+    container_name: nginx
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -42,6 +18,34 @@ services:
       - docker_network
     depends_on:
       - wordpress
+  wordpress:
+    build: ./srcs/requirements/wordpress
+    image: wordpress:v0.2
+    container_name: wordpress
+    restart: unless-stopped
+    env_file:
+      - ./srcs/.env
+    volumes:
+      - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
+    networks:
+      - docker_network
+    ports:
+      - 9000:9000
+    depends_on:
+      - mariadb
+  mariadb:
+    build: ./srcs/requirements/mariadb
+    image: mariadb:v1.0
+    container_name: mariadb
+    restart: unless-stopped
+    env_file:
+      - ./srcs/.env
+    volumes:
+      - ~/Documents/Inception/amariadbtestvolume:/var/lib/mysql
+    networks:
+      - docker_network
+    ports:
+      - 3306:3306
 
 networks:
   docker_network:
