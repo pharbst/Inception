@@ -3,7 +3,8 @@
 # while ! mysqladmin -u $WP_USER -p $WP_PASS ping "mariadb" -p 3306; do
 #     sleep 1
 # done
-sleep 15
+# sleep 35
+/root/wait-for-it.sh mariadb:3306 -t 120
 mkdir -p /var/www/html/wordpress
 cd /var/www/html/wordpress
 if [ -f "/var/www/html/wordpress/wp-config.php" ]

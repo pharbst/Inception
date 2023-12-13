@@ -13,8 +13,10 @@ RUN cd /usr/local/bin/ \
 
 COPY www.conf /etc/php/8.2/fpm/pool.d/
 
-COPY wordpress_init.sh /root/
+COPY	wordpress_init.sh /root/
+COPY	wait-for-it.sh /root/
 
-RUN chmod 777 /root/wordpress_init.sh
+RUN chmod 777 /root/wordpress_init.sh \
+	&& chmod 777 /root/wait-for-it.sh
 
 ENTRYPOINT [ "/root/wordpress_init.sh" ]

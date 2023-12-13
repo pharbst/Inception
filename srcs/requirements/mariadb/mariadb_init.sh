@@ -11,11 +11,13 @@ result=$(mariadb -sN -e "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '$W
 if [ "$result" = "0" ]; then
     mariadb -e "CREATE USER '$WP_USER'@'%' IDENTIFIED BY '$WP_PASS';"
 fi
-echo creating database
 if [ -d /var/lib/mysql/$WP_DB ]; then
 	echo database already exists
+else
+	echo creating database
+	mariadb -e "CREATE DATABASE IF NOT EXISTS $WP_DB; GRANT ALL ON $WP_DB.* TO '$WP_USER'@'%' IDENTIFIED BY '$WP_PASS'; FLUSH PRIVILEGES;"
 fi
-mariadb -e "CREATE DATABASE IF NOT EXISTS $WP_DB; GRANT ALL ON $WP_DB.* TO '$WP_USER'@'%' IDENTIFIED BY '$WP_PASS'; FLUSH PRIVILEGES;"
+
 sleep 2
 
 service mariadb stop

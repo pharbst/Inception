@@ -12,7 +12,7 @@ services:
     env_file:
       - ./srcs/.env
     volumes:
-      - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
+      - ./bwordpresstestvolume:/var/www/html/wordpress
     networks:
       - docker_network
     depends_on:
@@ -25,7 +25,7 @@ services:
     env_file:
       - ./srcs/.env
     volumes:
-      - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
+      - ./bwordpresstestvolume:/var/www/html/wordpress
     networks:
       - docker_network
     depends_on:
@@ -38,7 +38,7 @@ services:
     env_file:
       - ./srcs/.env
     volumes:
-      - ~/Documents/Inception/amariadbtestvolume:/var/lib/mysql
+      - ./amariadbtestvolume:/var/lib/mysql
     networks:
       - docker_network
 
