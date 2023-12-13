@@ -3,11 +3,10 @@ version: '3.1'
 services:
   nginx:
     build: ./srcs/requirements/nginx
-    image: nginx:v0.1
+    image: nginx:v1.0
     container_name: nginx
     restart: unless-stopped
     ports:
-      - 8080:8080
       - 80:80
       - 443:443
     env_file:
@@ -20,7 +19,7 @@ services:
       - wordpress
   wordpress:
     build: ./srcs/requirements/wordpress
-    image: wordpress:v0.2
+    image: wordpress:v1.0
     container_name: wordpress
     restart: unless-stopped
     env_file:
@@ -29,8 +28,6 @@ services:
       - ~/Documents/Inception/bwordpresstestvolume:/var/www/html/wordpress
     networks:
       - docker_network
-    ports:
-      - 9000:9000
     depends_on:
       - mariadb
   mariadb:
@@ -44,8 +41,6 @@ services:
       - ~/Documents/Inception/amariadbtestvolume:/var/lib/mysql
     networks:
       - docker_network
-    ports:
-      - 3306:3306
 
 networks:
   docker_network:

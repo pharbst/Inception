@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-LABEL version="0.1"
+LABEL version="1.0"
 LABEL description="wordpress container for inception project"
 
 RUN apt update
@@ -10,8 +10,6 @@ RUN cd /usr/local/bin/ \
 	&& wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& mv wp-cli.phar wp \
 	&& chmod +x wp
-
-EXPOSE 9000
 
 COPY www.conf /etc/php/8.2/fpm/pool.d/
 
