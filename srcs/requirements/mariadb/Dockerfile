@@ -1,12 +1,19 @@
-FROM debian:bookworm
+FROM debian:stable
 
 LABEL version="1.0"
 LABEL description="Mariadb container for inception project"
 
-RUN 	apt update && apt install -y mariadb-server
+RUN 	apt-get update
+# RUN		apt-get install -y mysql-server
+RUN		apt-get install -y mariadb-server
 
-COPY	./mariadb_init.sh /root/
+RUN mkdir -p /run/mysqld
+RUN touch /run/mysqld/mysqld.sock
+RUN chown -R mysql:mysql /run/mysqld
+RUN chown -R mysql:mysql /run/mysqld/mysqld.sock
 
-RUN		chmod 777 /root/mariadb_init.sh
+COPY	./entrypoint.sh /root/
 
-ENTRYPOINT [ "bash", "/root/mariadb_init.sh" ]
+RUN		chmod 777 /root/entrypoint.sh
+
+ENTRYPOINT [ "bash", "/root/entrypoint.sh" ]

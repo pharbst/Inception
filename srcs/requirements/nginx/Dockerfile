@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:stable
 
 LABEL version="1.0"
 LABEL description="NGINX container for inception project"

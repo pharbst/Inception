@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:stable
 
 LABEL version="1.0"
 LABEL description="wordpress container for inception project"
@@ -13,8 +13,8 @@ RUN cd /usr/local/bin/ \
 
 COPY www.conf /etc/php/8.2/fpm/pool.d/
 
-COPY wordpress_init.sh /root/
+COPY entrypoint.sh /root/
 
-RUN chmod 777 /root/wordpress_init.sh
+RUN chmod 777 /root/entrypoint.sh
 
-ENTRYPOINT [ "/root/wordpress_init.sh" ]
+ENTRYPOINT [ "/root/entrypoint.sh" ]
