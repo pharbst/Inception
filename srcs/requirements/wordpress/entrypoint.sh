@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# while ! mysqladmin -u $WP_USER -p $WP_PASS ping "mariadb" -p 3306; do
-#     sleep 1
-# done
 mkdir -p /var/www/html/wordpress
 chown www-data:www-data /var/www/html/wordpress
-sleep 20
+
+/usr/sbin/wait-for-it.sh mariadb:3306 -t 120
+
 cd /var/www/html/wordpress
 if [ -f "/var/www/html/wordpress/wp-config.php" ]; then
 	echo "WARNING: wordpress already configured";

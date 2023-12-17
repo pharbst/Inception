@@ -12,8 +12,8 @@ RUN touch /run/mysqld/mysqld.sock
 RUN chown -R mysql:mysql /run/mysqld
 RUN chown -R mysql:mysql /run/mysqld/mysqld.sock
 
-COPY	./entrypoint.sh /root/
+COPY	./entrypoint.sh /usr/sbin/
 
-RUN		chmod 777 /root/entrypoint.sh
+RUN		chmod +x /usr/sbin/entrypoint.sh
 
-ENTRYPOINT [ "bash", "/root/entrypoint.sh" ]
+ENTRYPOINT [ "bash", "/usr/sbin/entrypoint.sh" ]

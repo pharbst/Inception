@@ -13,8 +13,10 @@ RUN cd /usr/local/bin/ \
 
 COPY www.conf /etc/php/8.2/fpm/pool.d/
 
-COPY entrypoint.sh /root/
+COPY entrypoint.sh /usr/sbin/
+COPY ./wait-for-it.sh /usr/sbin
 
-RUN chmod 777 /root/entrypoint.sh
+RUN chmod +x /usr/sbin/entrypoint.sh
+RUN chmod +x /usr/sbin/wait-for-it.sh
 
-ENTRYPOINT [ "/root/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/sbin/entrypoint.sh" ]
