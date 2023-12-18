@@ -11,7 +11,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /Users/pharbst/wordpress:/var/www/html/wordpress
+      - ${HOME}/wordpress:/var/www/html/wordpress
     networks:
       - docker_network
     depends_on:
@@ -24,7 +24,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /Users/pharbst/wordpress:/var/www/html/wordpress
+      - ${HOME}/wordpress:/var/www/html/wordpress
     networks:
       - docker_network
     depends_on:
@@ -37,7 +37,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /Users/pharbst/mariadb:/var/lib/mysql
+      - ${HOME}/mariadb:/var/lib/mysql
     networks:
       - docker_network
 
