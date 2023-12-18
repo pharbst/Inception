@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 12:55:54 by pharbst           #+#    #+#              #
-#    Updated: 2023/12/18 16:52:13 by pharbst          ###   ########.fr        #
+#    Updated: 2023/12/18 18:46:00 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ PRONAME		=	Inception
 
 VPATH		:=	srcs requirements mariadb wordpress nginx
 
-COMPOSE		=	docker-compose.yml
+COMPOSE		=	./srcs/docker-compose.yml
 
 SERVICES	=	mariadb nginx wordpress
 
@@ -41,7 +41,7 @@ re:
 	docker-compose -f $(COMPOSE) up --build -d
 
 purge:
-	docker-compose down
+	docker-compose -f $(COMPOSE) down
 	docker rmi $(shell docker images -q)
 
 wipe: purge
