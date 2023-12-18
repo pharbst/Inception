@@ -3,7 +3,7 @@ version: '3.1'
 services:
   nginx:
     build: ./srcs/requirements/nginx
-    image: nginx:v1.0
+    image: nginx:Inception
     container_name: nginx
     restart: unless-stopped
     ports:
@@ -18,7 +18,7 @@ services:
       - wordpress
   wordpress:
     build: ./srcs/requirements/wordpress
-    image: wordpress:v1.0
+    image: wordpress:Inception
     container_name: wordpress
     restart: unless-stopped
     env_file:
@@ -31,7 +31,7 @@ services:
       - mariadb
   mariadb:
     build: ./srcs/requirements/mariadb
-    image: mariadb:v1.0
+    image: mariadb:Inception
     container_name: mariadb
     restart: unless-stopped
     env_file:
