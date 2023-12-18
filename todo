@@ -1,6 +1,0 @@
-1. volume called "DB"
-2. volume called "WordPress"
-3. wordpress website files inkl php files
-4. mariadb config files
-5. nginx config files
-6. docker compose with docker network (figure out if the dockercontainer are in the same docker network can communicate)
